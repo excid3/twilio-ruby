@@ -24,6 +24,7 @@ outgoing calls. See http://www.twilio.com/docs for more information.
 
 ### Files
  * **lib/twilio.rb**: include this library in your code
+ * **examples/example-rest.rb**: example usage of REST with specific functions for each type of request to make the lib easier to use
  * **examples/example-rest.rb**: example usage of REST
  * **examples/example-twiml.rb**: example usage of the TwiML generator
  * **examples/example-utils.rb**: example usage of utilities
