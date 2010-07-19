@@ -35,6 +35,13 @@ module Twilio
   require 'base64'
     
   TWILIO_API_URL = 'https://api.twilio.com'
+  TWILIO_LATEST_API_VERSION = '2008-08-01'
+  
+  TWILIO_API = {
+    '2008-08-01' => {
+      'SMS' => '/2008-08-01/Accounts/%s/SMS/Messages',
+    }
+  }
   
   # Twilio REST Helpers
   class RestAccount
@@ -43,9 +50,25 @@ module Twilio
     #
     #@param [String, String] Your Twilio Acount SID/ID and Auth Token
     #@return [Object] Twilio account object
-    def initialize(id, token)
+    def initialize(id, token, version=TWILIO_LATEST_API_VERSION)
       @id = id
       @token = token
+      @version = version
+    end
+    
+    #send an SMS from an account
+    #
+    #@param [String, String, String] From and to telephone numbers and content
+    #@return Twilio response XML
+    def sendSMS(from, to, body)
+      params = {
+        'From' => from,
+        'To' => to,
+        'Body' => body,
+      }
+
+      return request(TWILIO_API[@version]['SMS'] % @id,
+        'POST', params)
     end
     
     #sends a request and gets a response from the Twilio REST API
